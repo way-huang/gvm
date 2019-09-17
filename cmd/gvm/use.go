@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"path/filepath"
+	"io/ioutil"
 
 	"github.com/andrewkroh/gvm"
 	"github.com/andrewkroh/gvm/cmd/gvm/internal/shellfmt"
@@ -53,8 +54,9 @@ func (cmd *useCmd) Run(manager *gvm.Manager) error {
 		return err
 	}
 
-	shellFmt.Set("GOROOT", goroot)
-	shellFmt.Prepend("PATH", filepath.Join(goroot, "bin"))
+	GOROOT := shellFmt.Set("GOROOT", goroot)
+	PATH := shellFmt.Prepend("PATH", filepath.Join(goroot, "bin"))
+	ioutil.WriteFile(manager.Home + "/version", []byte(GOROOT + "\n" + PATH), 0644)
 	if _, experimental := ver.VendorSupport(); experimental {
 		shellFmt.Set("GO15VENDOREXPERIMENT", "1")
 	}

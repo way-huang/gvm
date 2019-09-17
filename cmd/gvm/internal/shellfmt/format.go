@@ -47,16 +47,22 @@ func New(format string) (*Fmt, error) {
 	return &Fmt{out: os.Stdout, fmt: formatter}, nil
 }
 
-func (f *Fmt) Set(name, val string) {
-	fmt.Println(f.fmt.Set(name, val))
+func (f *Fmt) Set(name, val string) string {
+	printStr := f.fmt.Set(name, val)
+	fmt.Println(printStr)
+	return printStr
 }
 
-func (f *Fmt) Prepend(name, val string) {
-	fmt.Println(f.fmt.Prepend(name, val))
+func (f *Fmt) Prepend(name, val string) string {
+	printStr := f.fmt.Prepend(name, val)
+	fmt.Println(printStr)
+	return printStr
 }
 
-func (f *Fmt) Append(name, val string) {
-	fmt.Println(f.fmt.Append(name, val))
+func (f *Fmt) Append(name, val string) string {
+	printStr := f.fmt.Append(name, val)
+	fmt.Println(printStr)
+	return printStr
 }
 
 func DefaultFormat() string {
