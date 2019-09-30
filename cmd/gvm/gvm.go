@@ -35,7 +35,7 @@ type commandFactory func(*kingpin.CmdClause) func(*gvm.Manager) error
 func main() {
 
 	app := kingpin.New("gvm", usage)
-	debug := app.Flag("debug", "Enable debug logging to stderr.").Short('d').Bool()
+	debug := app.Flag("debug", "Enable debug logging to stderr.").Short('d').Default("true").Bool()
 
 	manager := &gvm.Manager{}
 	commands := map[string]func(*gvm.Manager) error{}
@@ -51,7 +51,7 @@ func main() {
 	app.Flag("os", "Go binaries target os.").StringVar(&manager.GOOS)
 	app.Flag("arch", "Go binaries target architecture.").StringVar(&manager.GOOS)
 	app.Flag("home", "GVM home directory.").StringVar(&manager.Home)
-	app.Flag("url", "Go binaries repository base URL.").StringVar(&manager.GoStorageHome)
+	app.Flag("url", "Go binaries repository base URL.").Default("https://dl.google.com/go").StringVar(&manager.GoStorageHome)
 	app.Flag("repository", "Go upstream git repository.").StringVar(&manager.GoSourceURL)
 
 	command(useCommand, "use", "prepare go version and print environment variables").

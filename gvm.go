@@ -211,6 +211,7 @@ func (m *Manager) Install(version *GoVersion) (string, error) {
 	tryBinary := !version.IsTip()
 	if tryBinary {
 		dir, err := m.installBinary(version)
+		fmt.Println("\nWhat Errors", err)
 		if err == nil {
 			return dir, err
 		}
